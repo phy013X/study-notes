@@ -1,0 +1,9 @@
+{
+  // 在 Markdown 中 Ctrl+V 粘贴图片时，自动把图片存到 resources/images/年/月/
+  // 并自动生成相对路径链接，无需手动处理图片文件
+  "markdown.copyFiles.destination": {
+    "**/*.md": "resources/images/${documentYear}/${documentMonth}/"
+  },
+  // Markdown 预览默认同步编辑器滚动位置
+  "markdown.preview.scrollPreviewWithEditor": true
+}

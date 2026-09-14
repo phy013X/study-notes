@@ -1,0 +1,70 @@
+# ========== 系统垃圾 ==========
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ========== 编辑器 ==========
+# 共享 .vscode/settings.json（粘贴图片自动归档等开箱配置），忽略其余个人配置
+.vscode/*
+!.vscode/settings.json
+.idea/
+*.swp
+
+# ========== Python ==========
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# ========== Node / 前端 ==========
+node_modules/
+dist/
+
+# ========== Java ==========
+target/
+*.class
+
+# ========== C / C++ ==========
+*.o
+*.exe
+a.out
+
+# ========== LaTeX 编译中间文件（PDF 保留） ==========
+build/
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+*.nav
+*.snm
+*.vrb
+*.idx
+*.ilg
+*.ind
+*.dvi
+*.ps
+
+# ========== 大文件不进 Git（用网盘/图床外链） ==========
+*.mp4
+*.mov
+*.mkv
+*.zip
+*.7z
+*.tar
+*.gz
+*.rar
+# 数据集类
+*.csv
+*.parquet
+datasets/
+data/

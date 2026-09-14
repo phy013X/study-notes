@@ -1,0 +1,243 @@
+% !TeX program = xelatex
+% !TeX encoding = UTF-8
+% =====================================================================
+%  通用中文技术文档 / 学习笔记模板
+%  编译方式：xelatex（中文必须用 XeLaTeX，不要用 pdfLaTeX）
+%  推荐命令：latexmk -xelatex main.tex
+%  手动编译：xelatex main -> biber main -> xelatex main -> xelatex main
+% =====================================================================
+\documentclass[11pt,a4paper]{article}
+
+% ---------------------------------------------------------------------
+% 1. 中文支持（ctex 会自动检测 Windows / macOS / Linux 的中文字体）
+%    如编译报字体错误，可手动指定：
+%      Windows : \usepackage[fontset=windows]{ctex}
+%      macOS   : \usepackage[fontset=mac]{ctex}
+%      Linux   : \usepackage[fontset=fandol]{ctex}
+% ---------------------------------------------------------------------
+\usepackage{ctex}
+
+% ---------------------------------------------------------------------
+% 2. 版面设置
+% ---------------------------------------------------------------------
+\usepackage[margin=2.5cm]{geometry}   % 页边距
+\usepackage{setspace}
+\onehalfspacing                        % 1.3~1.5 倍行距，中文更易读
+\usepackage{parskip}                  % 段间留空、段首不缩进（技术文档风格）
+\usepackage{xcolor}
+
+% ---------------------------------------------------------------------
+% 3. 常用宏包
+% ---------------------------------------------------------------------
+\usepackage{graphicx}                 % 插图
+\usepackage{booktabs}                 % 三线表（\toprule \midrule \bottomrule）
+\usepackage{array}                    % 增强表格列格式
+\usepackage{enumitem}                 % 列表间距微调
+\usepackage{amsmath,amssymb,amsthm}   % 数学公式与符号
+\usepackage[hidelinks]{hyperref}      % 交叉引用（hidelinks：先加载，后面统一着色）
+
+% ---------------------------------------------------------------------
+% 4. 定理类环境（按需使用，不用也不影响）
+%    编号带章节号，如“定理 2.1”
+% ---------------------------------------------------------------------
+\newtheorem{theorem}{定理}[section]
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{proposition}[theorem]{命题}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{定义}
+\theoremstyle{remark}
+\newtheorem*{remark}{注}
+
+% ---------------------------------------------------------------------
+% 5. 代码排版（listings，无需安装额外软件）
+%    若追求更漂亮的高亮，可改用 minted（需安装 Python + Pygments，见 README）
+%    注意：listings 对中文支持较差，代码内的注释/字符串建议用英文；
+%          正文里讲代码不受影响。
+% ---------------------------------------------------------------------
+\definecolor{codebg}{RGB}{248,248,248}
+\definecolor{framegray}{RGB}{210,210,210}
+\definecolor{kwblue}{RGB}{0,0,180}
+\definecolor{cmtgreen}{RGB}{0,128,0}
+\definecolor{strred}{RGB}{163,21,21}
+
+\usepackage{listings}
+\lstset{
+  backgroundcolor=\color{codebg},     % 浅灰背景
+  basicstyle=\ttfamily\footnotesize,  % 等宽字体
+  keywordstyle=\color{kwblue}\bfseries,
+  commentstyle=\color{cmtgreen}\itshape,
+  stringstyle=\color{strred},
+  numbers=left,                       % 左侧行号
+  numberstyle=\tiny\color{gray},
+  numbersep=8pt,
+  frame=single,                       % 边框
+  rulecolor=\color{framegray},
+  framesep=4pt,
+  breaklines=true,                    % 长行自动换行
+  showstringspaces=false,
+  tabsize=4,
+  captionpos=b,                       % 代码标题在下方
+  columns=fixed,
+  extendedchars=true,
+  upquote=true,
+}
+\renewcommand{\lstlistingname}{代码}   % 代码块标题中文化：代码 1, 代码 2, ...
+% 常用语言快捷切换：\begin{lstlisting}[language=Python] ...
+%   内置支持 Python / Java / C / C++ / Bash / SQL / Matlab 等
+
+% ---------------------------------------------------------------------
+% 6. 参考文献：GB/T 7714-2015 国标格式（顺序编码制）
+%    文献条目写在 references.bib 中
+% ---------------------------------------------------------------------
+\usepackage[backend=biber,style=gb7714-2015]{biblatex}
+\addbibresource{references.bib}
+
+% ---------------------------------------------------------------------
+% 7. 超链接配色（放在所有宏包之后）
+% ---------------------------------------------------------------------
+\hypersetup{
+  colorlinks=true,
+  linkcolor=structureblue,
+  citecolor=structureblue,
+  urlcolor=structureblue,
+  bookmarksnumbered=true,
+}
+\definecolor{structureblue}{RGB}{26,82,118}
+
+% ---------------------------------------------------------------------
+% 8. 文档信息：每次写新报告只改这里
+% ---------------------------------------------------------------------
+\title{\textbf{在这里写报告标题}}
+\author{张三 \\
+  软件工程专业 \,$\cdot$\, 学号 20230000 \\
+  \texttt{zhangsan@example.com}}
+\date{\today}   % \today 自动取编译当天日期；也可手写成 2026年9月14日
+
+\begin{document}
+
+\maketitle
+
+% ==================== 正文从这里开始 ====================
+
+\section{概述}
+
+这是一个通用的中文技术文档模板，适用于课程实验报告、技术总结和学习笔记。
+本文同时演示了模板支持的各种排版元素，写完后把示例内容删掉即可。
+
+行内数学公式用单个美元符号包裹，例如 $E = mc^2$、$f(x)=\int_0^x g(t)\,\mathrm{d}t$。
+常用的排版结构包括：
+
+\begin{itemize}[itemsep=2pt,topsep=4pt]
+  \item 无序列表：要点一、要点二；
+  \item 有序列表见下方；
+  \item 以及对外部资料的引用，如文献\cite{knuth1997taocp}。
+\end{itemize}
+
+\begin{enumerate}[itemsep=2pt,topsep=4pt]
+  \item 第一步，复制整个模板文件夹；
+  \item 第二步，修改标题、作者等文档信息；
+  \item 第三步，删除示例，开始写自己的内容。
+\end{enumerate}
+
+\section{数学公式与定理}
+
+行间公式用 equation 环境并自动编号，方便在正文里交叉引用：
+\begin{equation}
+  \label{eq:gaussian}
+  f(x) = \frac{1}{\sqrt{2\pi}\,\sigma}
+         \exp\!\left(-\frac{(x-\mu)^2}{2\sigma^2}\right).
+\end{equation}
+
+公式\eqref{eq:gaussian}是高斯分布的概率密度函数。多行对齐用 align 环境：
+\begin{align}
+  (a+b)^2 & = a^2 + 2ab + b^2, \\
+  (a-b)^2 & = a^2 - 2ab + b^2.
+\end{align}
+
+定理、定义等环境的用法如下。
+
+\begin{definition}[勾股定理]
+  设直角三角形两条直角边长度为 $a$、$b$，斜边长度为 $c$，则
+  \begin{equation*}
+    a^2 + b^2 = c^2.
+  \end{equation*}
+\end{definition}
+
+\begin{theorem}
+  \label{thm:example}
+  任意有限状态的马尔可夫链至少存在一个平稳分布。
+\end{theorem}
+
+\begin{proof}
+  证明从略，这里只演示环境样式。
+\end{proof}
+
+\section{图表}
+
+\subsection{图片}
+
+把图片文件放进 \texttt{figures/} 目录，然后用 \texttt{$\backslash$includegraphics} 插入。
+下面先用方框作占位演示（实际使用时替换成注释中的命令）：
+
+\begin{figure}[htbp]
+  \centering
+  \fbox{\parbox[c][4cm][c]{0.62\linewidth}{\centering 图片占位框\\[6pt]
+    {\footnotesize 实际使用时替换为下面的命令：}\\
+    {\footnotesize\tt $\backslash$includegraphics\{figures/demo.png\}}}}
+  \caption{图片标题放在图的下方}
+  \label{fig:demo}
+\end{figure}
+
+如图~\ref{fig:demo} 所示，建议优先使用矢量图（PDF/SVG 转 PDF），放大不模糊。
+
+\subsection{三线表}
+
+正式文档推荐三线表，只保留三条横线，不要竖线，如表~\ref{tab:example}。
+
+\begin{table}[htbp]
+  \centering
+  \caption{表格标题放在表的上方}
+  \label{tab:example}
+  \begin{tabular}{lcc}
+    \toprule
+    算法 & 时间复杂度 & 空间复杂度 \\
+    \midrule
+    冒泡排序 & $O(n^2)$ & $O(1)$ \\
+    归并排序 & $O(n\log n)$ & $O(n)$ \\
+    快速排序 & $O(n\log n)$（平均） & $O(\log n)$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{代码}
+
+行内代码用 \texttt{lstinline}，例如 \lstinline{int x = 0;}。
+多行代码用 lstlisting 环境，指定语言即可获得关键字高亮和行号：
+
+\begin{lstlisting}[language=Python, caption={Python 示例：二分查找}]
+def binary_search(arr, target):
+    lo, hi = 0, len(arr) - 1
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            lo = mid + 1
+        else:
+            hi = mid - 1
+    return -1
+\end{lstlisting}
+
+切换语言只需改 \texttt{language=Java}、\texttt{language=C++}、\texttt{language=Bash} 等。
+
+\section{参考文献的写法}
+
+参考文献条目统一写在 \texttt{references.bib} 里，正文用
+\texttt{$\backslash$cite\{key\}} 引用，文末自动生成国标 GB/T 7714-2015
+格式的参考文献表，例如\cite{tanenbaum2014modern}和中文文献\cite{yan2008wcdd}。
+引用、编号、排序全部自动处理，增删文献无需手动调整编号。
+
+% ==================== 参考文献 ====================
+\printbibliography[heading=bibintoc,title=参考文献]
+
+\end{document}
